@@ -1,4 +1,5 @@
-import { Obj } from './../js/object.js';
+//import { Card } from './../js/card.js';
+//import { Card } from './../js/game-board.js';
 $(document).ready(function () {
   $('.btn').click(function (e) {
     e.preventDefault();
