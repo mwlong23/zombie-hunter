@@ -16,7 +16,15 @@ export class GameBoard {
       return b.random - a.random;
     });
     for (let i = 0; i < zombies; i++) {
-      this.cards[i].zombie = true;
+      console.log ("$$$$$$$$$$$$ i =: " + i);
+      this.cards[i].isZombie = true;
     }
+  }
+
+  sort() {
+    let that = this;
+    this.cards.sort(function(a, b){
+      return (a.row * that.columns + a.column) - (b.row * that.columns + b.column);
+    });
   }
 }
