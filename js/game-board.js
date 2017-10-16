@@ -16,7 +16,6 @@ export class GameBoard {
       return b.random - a.random;
     });
     for (let i = 0; i < zombies; i++) {
-      console.log ("$$$$$$$$$$$$ i =: " + i);
       this.cards[i].isZombie = true;
     }
   }
