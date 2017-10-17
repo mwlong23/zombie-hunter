@@ -1,3 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Nosifer|Titan+One');
+
+
+
 .zombie-card {
   max-width: 100%;
 }
+
+.jumbotron{
+  background-color: maroon;
+}
+
+h1 {
+  font-family: 'Nosifer', cursive;
+}
+
+h2  {
+  font-family: 'Titan One', cursive;
+}
+.shotgun-blast{
+  display: none;
+  max-width: 100%;
+}
+
+/*#countdown-clock {
+
+}*/

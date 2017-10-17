@@ -19,7 +19,7 @@ var Card = exports.Card = function Card(row, column, random) {
 };
 
 },{}],2:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -28,7 +28,7 @@ exports.GameBoard = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _card = require("./../js/card.js");
+var _card = require('./../js/card.js');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -51,13 +51,12 @@ var GameBoard = exports.GameBoard = function () {
       return b.random - a.random;
     });
     for (var _i = 0; _i < zombies; _i++) {
-      console.log("$$$$$$$$$$$$ i =: " + _i);
       this.cards[_i].isZombie = true;
     }
   }
 
   _createClass(GameBoard, [{
-    key: "sort",
+    key: 'sort',
     value: function sort() {
       var that = this;
       this.cards.sort(function (a, b) {
@@ -74,26 +73,62 @@ var GameBoard = exports.GameBoard = function () {
 
 var _gameBoard = require('./../js/game-board.js');
 
+var board = void 0; //import { Card } from './../js/card.js';
+
 $(document).ready(function () {
+
   $('.btn').click(function (e) {
     e.preventDefault();
-    console.log("hello");
-    var board = new _gameBoard.GameBoard(3, 6);
+    board = new _gameBoard.GameBoard(3, 6);
+
+    $(".shotgun-blast").hide();
+    console.log("hello \n");
     board.cards.forEach(function (card) {
       var position = "#row" + (card.row + 1) + "-column" + (card.column + 1);
       if (card.isZombie) {
         $(position + " .infected").show();
-        console.log("show: " + position + " .infected");
         $(position + " .healthy").hide();
-        console.log("hide: " + position + " .healthy");
       } else {
         $(position + " .infected").hide();
-        console.log("hide: " + position + " .infected");
         $(position + " .healthy").show();
-        console.log("show: " + position + " .healthy");
       }
     });
+
+    var duration = moment.duration({
+      'seconds': 30,
+      'hour': 0,
+      'minutes': 0
+    });
+
+    var timestamp = new Date(0, 0, 0, 0, 0, 30);
+    var interval = 1;
+    setInterval(function () {
+      timestamp = new Date(timestamp.getTime() + interval * 1000);
+
+      duration = moment.duration(duration.asSeconds() - interval, 'seconds');
+      //.asSeconds()
+      $('#time-remaining').text(Math.round(duration.asSeconds()) + 's'); //.seconds()
+
+    }, 1000);
   });
-}); //import { Card } from './../js/card.js';
+
+  jQuery(".col-xs-2").click(function () {
+    var clickedMinionID = jQuery(this).attr("id");
+    board.cards.forEach(function (card) {
+      var position = "row" + (card.row + 1) + "-column" + (card.column + 1);
+      if (clickedMinionID == position) {
+        card.shot = true;
+        $("#" + position + " .infected").hide();
+        $("#" + position + " .healthy").hide();
+        $("#" + position + " .shotgun-blast").show();
+      }
+    });
+
+    board.cards.forEach(function (card) {
+      var position = "row" + (card.row + 1) + "-column" + (card.column + 1);
+      console.log("shot status:  " + card.shot + "\nrow: " + card.row + "\ncolumn: " + card.column);
+    });
+  });
+});
 
 },{"./../js/game-board.js":2}]},{},[3]);
